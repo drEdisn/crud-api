@@ -1,7 +1,7 @@
 import * as http from 'http';
 import { IUser } from './users';
 import { validate } from 'uuid';
-import { getEnd } from './getEnd';
+import { getEndRequest } from './getEnd';
 import { findUser } from './findUser';
 
 const putRequest = (req: http.IncomingMessage, res: http.ServerResponse) => {
@@ -13,7 +13,7 @@ const putRequest = (req: http.IncomingMessage, res: http.ServerResponse) => {
     try {
       isCheck = JSON.parse(chunk);
     } catch {
-      getEnd(res, 500, 'text/plain', 'Invalid body');
+      getEndRequest(res, 500, 'text/plain', 'Invalid body');
     }
   })
 
@@ -23,11 +23,11 @@ const putRequest = (req: http.IncomingMessage, res: http.ServerResponse) => {
       user.age = isCheck.age ? isCheck.age : user.age;
       user.hobbys = isCheck.hobbys ? isCheck.hobbys : user.hobbys;
 
-      getEnd(res, 200, 'application/json', JSON.stringify(user));
+      getEndRequest(res, 200, 'application/json', JSON.stringify(user));
     } else if (validate(isID)) {
-      getEnd(res, 404, 'text/plain', 'User not found');
+      getEndRequest(res, 404, 'text/plain', 'User not found');
     } else {
-      getEnd(res, 400, 'text/plain', 'Invalid request');
+      getEndRequest(res, 400, 'text/plain', 'Invalid request');
     }
   })
 }
