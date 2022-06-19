@@ -7,6 +7,7 @@ const getRequest = (req: http.IncomingMessage, res: http.ServerResponse) => {
   let isPath: string = '/api/users';
   let isID: string = req.url.split('/')[req.url.split('/').length - 1];
   let isIdIndex: number;
+  
   users.forEach((i, ind) => {
     if (`${isPath}/${i.id}` === req.url) {
       isPath += `/${i.id}`;
